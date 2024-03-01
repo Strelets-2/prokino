@@ -111,6 +111,26 @@ iframe {
   margin: 0 auto;
 }
 
+.link-show-trailer {
+  padding: 14px 20px;
+  border-radius: 52px;
+  background-color: #FF3D00;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  /* Делаем прозрачную границу */
+  border: 1px solid transparent;
+  outline: none;
+}
+
+.link-show-trailer:hover {
+  background-color: #ff521b;
+}
+
+.link-show-trailer:focus {
+  border-color: #ffffff;
+}
+
 
 .header {
   /* Т.к. header накладывается на картинку делаем ему абсолютное позиционирование (HTML у нас position: relative;) */
@@ -132,34 +152,35 @@ iframe {
 }
 
 .header__link {
-  padding: 14px 20px;
-  border-radius: 52px;
-  background-color: #FF3D00;
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-  /* Делаем прозрачную границу */
-  border: 1px solid transparent;
-  outline: none;
-}
-
-.header__link:hover {
-  background-color: #ff521b;
-}
-
-.header__link:focus {
-  background-color: #ff521b;
-  border-color: #ffffff;
+  display: block;
 }
 
 .hero {
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: contain;
   padding-bottom: 60px;
   /* Отступ сверху берем 33% от ширины экрана, чтобы при адаптиве пропорции размещения элементов секции не изменялись */
-  padding-top: 33vw;
+  padding-top: calc((476 / 1440)*100%);
+
+  /* Если установленный браузер не поддерживает  функцию image-set(), то будет загружаться эта картинка, если поддерживает см. ниже*/
+  background-image: url(../img/hero-bg.jpg);
 
   /* Прописываем градиент секции, потом сразу картинку */
-  background: linear-gradient(180.00deg, rgba(0, 0, 0, 0) 52.716%,
-      rgba(0, 0, 0, 0.76) 65.309%), url('../img/hero-bg.jpg') no-repeat top / cover;
+  background-image: linear-gradient(180.00deg, rgba(0, 0, 0, 0) 52.716%,
+      rgba(0, 0, 0, 0.76) 65.309%), -webkit-image-set(url('../img/hero-bg@2x.avif') 2x,
+      url('../img/hero-bg.avif') 1x,
+      url('../img/hero-bg@2x.webp') 2x,
+      url('../img/hero-bg.webp') 1x,
+      url('../img/hero-bg@2x.jpg') 2x,
+      url('../img/hero-bg.jpg') 1x);
+  background-image: linear-gradient(180.00deg, rgba(0, 0, 0, 0) 52.716%,
+      rgba(0, 0, 0, 0.76) 65.309%), image-set(url('../img/hero-bg@2x.avif') type('image/avif') 2x,
+      url('../img/hero-bg.avif') type('image/avif') 1x,
+      url('../img/hero-bg@2x.webp') type('image/webp') 2x,
+      url('../img/hero-bg.webp') type('image/webp') 1x,
+      url('../img/hero-bg@2x.jpg') 2x,
+      url('../img/hero-bg.jpg') 1x);
 
   /* Этот градиент взят из фигмы. Он не совсем соответствует рисунку
   background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.76) 100%); 
@@ -175,7 +196,10 @@ iframe {
 }
 
 .hero__banner {
-  max-width: 795px;
+  /* блок будет реагировать на изменения ширины экрана и сохранит фиксированную ширину в 795 пикселей до тех пор,
+        пока экран не станет уже меньше этого значения, после чего блок будет растягиваться на всю доступную ширину экрана */
+  max-width: 100%;
+  width: 795px;
   margin-bottom: 2px;
 }
 
@@ -185,6 +209,10 @@ iframe {
   font-weight: 600;
   text-transform: uppercase;
   margin-bottom: 16px;
+}
+
+.hero__link {
+  display: none;
 }
 
 .hero__arrow {
@@ -265,10 +293,13 @@ iframe {
   /* Если установленный браузер не поддерживает  функцию image-set(), то будет загружаться эта картинка, если поддерживает см. ниже*/
   background-image: url(../img/aang.jpg);
   /* Установленная версия Chrome поддерживает функцию image-set() только с префиксом -webkit- Если используется дисплей с повышенной плотностью пикселей, картинка будет автоматически загружаться лучшего качества (День 2, время 1:21:00)*/
-  background-image: -webkit-image-set(url('../img/aang@2x.webp') 2x,
+  background-image: -webkit-image-set(url('../img/aang@2x.avif') 2x,
+      url('../img/aang.avif') 1x,
+      url('../img/aang@2x.webp') 2x,
       url('../img/aang.webp') 1x,
       url('../img/aang@2x.jpg') 2x,
       url('../img/aang.jpg') 1x);
+
   background-image: image-set(url('../img/aang@2x.avif') type('image/avif') 2x,
       url('../img/aang.avif') type('image/avif') 1x,
       url('../img/aang@2x.webp') type('image/webp') 2x,
@@ -301,6 +332,8 @@ iframe {
   font-weight: 600;
   line-height: 150%;
   text-transform: uppercase;
+  /* Запрещаем перенос  слов в строке (иначе при разрешении 320рх цифра в кнопке перенесется на новую строку */
+  white-space: nowrap;
 
 }
 
@@ -313,18 +346,24 @@ iframe {
   background: #ff521b;
 }
 
+/* Видео День 2, время 1:04:30 */
 .trailers__wrapper {
   position: relative;
-  /* 9/16 - это соотношение сторон видео (оно равно 0,5625). Результат деления берем в процентах. Т.к. высота блока ровна 0, но есть нижний падинг, то высота пустого блока будет ровна 56,25% от ширины блока*/
-  padding-bottom: 56.25%;
+  /* 9/16 - это соотношение сторон видео (ширина блока на экране шириной 1440 ровна 1300рх высота 700рх). Оно равно 0,5384. Результат деления берем в процентах. Т.к. высота блока ровна 0, но есть нижний падинг, то высота пустого блока будет ровна 53,84%% от ширины блока (это и будет формат видео)*/
+  padding-bottom: 53.84%;
+  /* Высоту блока устанавливаем в 0, а раз у нас блок имеет свойство box-sizing: border-box, то его общая высота будет ровна высоте padding-bottom */
   height: 0;
   overflow: hidden;
 }
 
+/* Растягиваем видео на весь блок trailers__wrapper (Видео День 1, время  ) */
 .trailers__video {
   position: absolute;
+  /* Прижимаем блок к верху */
   top: 0;
+  /* Прижимаем блок к левому краю */
   left: 0;
+  /* Растягиваем блок на всю ширину и высоту блока обертки */
   width: 100%;
   height: 100%;
 }
@@ -374,11 +413,28 @@ iframe {
 
 @media (max-width: 1080px) {
   .hero {
+    padding-top: calc(337 / 1024 * 100%);
     padding-bottom: 50px;
+    background-image: linear-gradient(180.00deg, rgba(0, 0, 0, 0) 52.716%,
+        rgba(0, 0, 0, 0.76) 65.309%), -webkit-image-set(url('../img/hero-bg1024@2x.avif') 2x,
+        url('../img/hero-bg1024.avif') 1x,
+        url('../img/hero-bg1024@2x.webp') 2x,
+        url('../img/hero-bg1024.webp') 1x,
+        url('../img/hero-bg1024@2x.jpg') 2x,
+        url('../img/hero-bg1024.jpg') 1x);
+    background-image: linear-gradient(180.00deg, rgba(0, 0, 0, 0) 52.716%,
+        rgba(0, 0, 0, 0.76) 65.309%), image-set(url('../img/hero-bg1024@2x.avif') 2x,
+        url('../img/hero-bg1024.avif') 1x,
+        url('../img/hero-bg1024@2x.webp') 2x,
+        url('../img/hero-bg1024.webp') 1x,
+        url('../img/hero-bg1024@2x.jpg') 2x,
+        url('../img/hero-bg1024.jpg') 1x);
   }
 
   .hero__banner {
-    max-width: 639px;
+    /* блок будет реагировать на изменения ширины экрана и сохранит фиксированную ширину в 639 пикселей до тех пор,
+      пока экран не станет уже меньше этого значения, после чего блок будет растягиваться на всю доступную ширину экрана (т.к выше указано для блока max-width: 100%)*/
+    width: 639px;
   }
 
   .hero__date {
@@ -387,6 +443,24 @@ iframe {
 
   .about {
     padding: 50px 0;
+  }
+
+  .about__container::after {
+    content: '';
+    flex-basis: 436px;
+    /* Если установленный браузер не поддерживает  функцию image-set(), то будет загружаться эта картинка, если поддерживает см. ниже*/
+    background-image: url(../img/aang1024.jpg);
+    background-image: -webkit-image-set(url('../img/aang1024@2x.avif') 2x,
+        url('../img/aang1024.avif') 1x,
+        url('../img/aang1024@2x.webp') 2x,
+        url('../img/aang1024.webp') 1x,
+        url('../img/aang1024@2x.jpg') 2x,
+        url('../img/aang1024.jpg') 1x);
+
+    background-image: image-set(url('../img/aang1024@2x.avif') type('image/avif') 2x,
+        url('../img/aang1024.avif') type('image/avif') 1x,
+        url('../img/aang1024@webp') type('image/webp') 2x,
+        url('../img/aang1024.webp') type('image/webp') 1x, url('../img/aang1024@2x.jpg') 2x, url('../img/aang1024.jpg') 1x);
   }
 
   .about__content {
@@ -395,6 +469,7 @@ iframe {
 
   .about__title {
     font-size: 40px;
+    margin-bottom: 24px;
   }
 
   .about__discription {
@@ -402,42 +477,62 @@ iframe {
     font-weight: 400;
   }
 
-  .about__container::after {
-    content: '';
-    flex-basis: 436px;
-    /* Если установленный браузер не поддерживает  функцию image-set(), то будет загружаться эта картинка, если поддерживает см. ниже*/
-    background-image: url(../img/aang1024.jpg);
-    background-image: -webkit-image-set(url('../img/aang1024@2x.webp') 2x,
-        url('../img/aang1024.webp') 1x, url('../img/aang1024@2x.jpg') 2x, url('../img/aang1024.jpg') 1x);
-    background-image: image-set(url('../img/aang1024@2x.avif') type('image/avif') 2x,
-        url('../img/aang1024.avif') type('image/avif') 1x,
-        url('../img/aang1024@webp') type('image/webp') 2x,
-        url('../img/aang1024.webp') type('image/webp') 1x, url('../img/aang1024@2x.jpg') 2x, url('../img/aang1024.jpg') 1x);
+  .trailers {
+    padding: 50px 0 100px;
   }
 }
 
-
-@media (max-width: 768px) {
-
+@media (max-width: 900px) {
   .container {
     padding: 0 44px;
   }
 
-  /* .hero {
-    padding-bottom: 50px;
+  .header {
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 
-  .hero__banner {
-    max-width: 639px;
+  .header__logo {
+    width: 130px;
+    height: 28px;
+  }
+
+  .link-show-trailer {
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+
+  .hero {
+    padding-top: calc(337 / 768 * 100%);
+    padding-bottom: 40px;
+    background-image: linear-gradient(180.00deg, rgba(0, 0, 0, 0) 52.716%,
+        rgba(0, 0, 0, 0.76) 65.309%), -webkit-image-set(url('../img/hero-bg768@2x.avif') 2x,
+        url('../img/hero-bg768.avif') 1x,
+        url('../img/hero-bg768@2x.webp') 2x,
+        url('../img/hero-bg768.webp') 1x,
+        url('../img/hero-bg768@2x.jpg') 2x,
+        url('../img/hero-bg768.jpg') 1x);
+    background-image: linear-gradient(180.00deg, rgba(0, 0, 0, 0) 52.716%,
+        rgba(0, 0, 0, 0.76) 65.309%), image-set(url('./img/hero-bg768@2x.avif') type('image/avif') 2x,
+        url('../img/hero-bg768.avif') type('image/avif') 1x,
+        url('../img/hero-bg768@2x.webp') type('image/webp') 2x,
+        url('../img/hero-bg768.webp') type('image/webp') 1x,
+        url('../img/hero-bg768@2x.jpg') 2x,
+        url('../img/hero-bg768.jpg') 1x);
   }
 
   .hero__date {
-    font-size: 32px;
+    margin-bottom: 12px;
+  }
+
+  .hero__arrow {
+    width: 36px;
+    height: 36px;
   }
 
   .about {
-    padding: 50px 0;
-  } */
+    padding: 40px 0;
+  }
 
   .about__container {
     flex-direction: column;
@@ -462,47 +557,114 @@ iframe {
     flex-basis: 300px;
     /* Если установленный браузер не поддерживает  функцию image-set(), то будет загружаться эта картинка, если поддерживает см. ниже*/
     background-image: url(../img/aang768.jpg);
-    background-image: -webkit-image-set(url('../img/aang768@2x.webp') 2x,
+    background-image: -webkit-image-set(url('../img/aang768@2x.avif') 2x,
+        url('../img/aang768.avif') 1x,
+        url('../img/aang768@2x.webp') 2x,
         url('../img/aang768.webp') 1x,
         url('../img/aang768@2x.jpg') 2x,
         url('../img/aang768.jpg') 1x);
+
     background-image: image-set(url('../img/aang768@2x.avif') type('image/avif') 2x,
         url('../img/aang768.avif') type('image/avif') 1x,
         url('../img/aang768@2x.webp') type('image/webp') 2x,
         url('../img/aang768.webp') type('image/webp') 1x, url('../img/aang768@2x.jpg') 2x, url('../img/aang768.jpg') 1x);
   }
+
+  .about__title {
+    max-width: 370px;
+  }
+
+  .trailers {
+    padding: 40px 0 80px;
+  }
+
+
+  .trailers__buttons {
+    gap: 8px;
+  }
+
+  .trailers__button {
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+
+  .footer {
+    padding: 32px 0;
+  }
+
+  .footer__container {
+    gap: 20px;
+  }
+
+  .footer__developer {
+    font-size: 12px;
+  }
+
+  .footer__copyright {
+    font-size: 12px;
+  }
+
+  .footer__logo {
+    width: 217px;
+  }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 620px) {
 
   .container {
     padding: 0 16px;
   }
 
+  .header {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .header__logo {
+    width: 80px;
+    height: 18px;
+  }
+
+  .header__link {
+    display: none;
+  }
+
   .hero {
+    padding-top: calc(173 / 320 * 100%);
     padding-bottom: 30px;
+    background-image: linear-gradient(180.00deg, rgba(0, 0, 0, 0) 52.716%,
+        rgba(0, 0, 0, 0.76) 65.309%), -webkit-image-set(url('../img/hero-bg320@2x.avif') 2x,
+        url('../img/hero-bg320.avif') 1x,
+        url('../img/hero-bg320@2x.webp') 2x,
+        url('../img/hero-bg320.webp') 1x,
+        url('../img/hero-bg320@2x.jpg') 2x,
+        url('../img/hero-bg320.jpg') 1x);
+    background-image: linear-gradient(180.00deg, rgba(0, 0, 0, 0) 52.716%,
+        rgba(0, 0, 0, 0.76) 65.309%), image-set(url('./img/hero-bg320@2x.avif') type('image/avif') 2x,
+        url('../img/hero-bg320.avif') type('image/avif') 1x,
+        url('../img/hero-bg320@2x.webp') type('image/webp') 2x,
+        url('../img/hero-bg320.webp') type('image/webp') 1x,
+        url('../img/hero-bg320@2x.jpg') 2x,
+        url('../img/hero-bg320.jpg') 1x);
   }
 
 
-  .hero__banner {
+  /* .hero__banner {
     max-width: 288px;
-  }
+  } */
 
 
   .hero__date {
     font-size: 20px;
   }
 
+  .hero__link {
+    display: block;
+    margin-bottom: 32px;
+  }
+
   .about {
     padding: 30px 0;
-  }
-
-  .about__container {
-    flex-direction: column;
-  }
-
-  .about__content {
-    flex-basis: auto;
   }
 
   .about__title {
@@ -521,12 +683,64 @@ iframe {
     flex-basis: 268px;
     /* Если установленный браузер не поддерживает  функцию image-set(), то будет загружаться эта картинка, если поддерживает см. ниже*/
     background-image: url(../img/aang320.jpg);
-    background-image: -webkit-image-set(url('../img/aang320@2x.webp') 2x,
-        url('../img/aang320.webp') 1x, url('../img/aang320@2x.jpg') 2x, url('../img/aang320.jpg') 1x);
-    /* background-image: -webkit-image-set(url('../img/aang@2x320.jpg') 2x, url('../img/aang320.jpg') 1x); */
+    background-image: -webkit-image-set(url('../img/aang320@2x.avif') 2x,
+        url('../img/aang320.avif') 1x,
+        url('../img/aang320@2x.webp') 2x,
+        url('../img/aang320.webp') 1x,
+        url('../img/aang320@2x.jpg') 2x,
+        url('../img/aang320.jpg') 1x);
+
     background-image: image-set(url('../img/aang320@2x.avif') type('image/avif') 2x,
         url('../img/aang320.avif') type('image/avif') 1x,
         url('../img/aang320@2x.webp') type('image/webp') 2x,
         url('../img/aang320.webp') type('image/webp') 1x, url('../img/aang@2x320.jpg') 2x, url('../img/aang320.jpg') 1x);
   }
+
+  .trailers {
+    padding: 30px 0 60px;
+  }
+
+  .trailers__container {
+    padding: 0;
+  }
+
+  .trailers__buttons {
+    margin-bottom: 12px;
+    padding: 0 16px;
+    /* Так как при расширении кнопки не помещаются в своем контейнере добавляем ему скрол по оси х */
+    overflow-x: scroll;
+    /* Устанавливает ширину полосы прокрутки в нуль, что приводит к скрытию полосы прокрутки. Элемент остается прокручиваемым,
+      но пользователю не будет видна стандартная полоса прокрутки. (Не всеми старыми браузерами поддерживается */
+    scrollbar-width: none;
+  }
+
+  /* для стилизации полосы прокрутки в браузере Chrome версий ранее 121 */
+  .trailers__buttons::-webkit-scrollbar {
+    display: none;
+  }
+
+  .trailers__list {
+    padding: 0 16px;
+  }
+
+  .footer {
+    padding: 20px 0;
+  }
+
+  .footer__container {
+    grid-template-areas:
+      'logo'
+      'developers'
+      'copyright';
+
+  }
+
+  .footer__logo {
+    justify-self: flex-start;
+    margin-bottom: 4px;
+  }
 }
+
+/* grid-template-areas: "developers logo"
+"copyright logo";
+gap: 36px; */
