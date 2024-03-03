@@ -7,6 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/svg+xml" href="img/icon.svg">
 
+  <!-- Чтобы при перезагрузке страницы не прыгали шрифты, делаем их предзагрузку -->
+  <link href="fonts/inter-v13-cyrillic_latin-600.woff2" rel="preload" as="font" type="font/woff2" crossorigin>
+  <link href="fonts/inter-v13-cyrillic_latin-regular.woff2" rel="preload" as="font" type="font/woff2" crossorigin>
+
   <link href="css/normalize.css" rel="stylesheet">
   <link href="css/index.css" rel="stylesheet">
   <title>ПРО КИНО - Аватар: Легенда об Аанге</title>
@@ -58,7 +62,7 @@
           <h2 class="about__title">
             Аватар: Легенда&nbsp;об&nbsp;Аанге
           </h2>
-          <p class="about__discription">
+          <p class="about__description">
             <!-- Текст пропускается через типограф -->
             Сюжет рассказывает о&nbsp;мальчике из&nbsp;племени воздушных кочевников, Аанге, способном покорять стихию
             воздуха. В возрасте 11&nbsp;лет, он&nbsp;узнал, что он&nbsp;Аватар&nbsp;&mdash; властелин четырёх стихий.
@@ -75,7 +79,7 @@
           </p>
         </div>
 
-        <!-- Так как картинки на каждом разрешении имеют разные размеры мы их скачиваем под разный размер и записываем через тег picture (контейнер для хранения нескольких элементов source), чтобы при адаптиве менять под размер экрана, но так в промежуточных рамерах экрана картинка не будет растягиваться на всю высоту контейнера, поэтому этот вариант не подойдет -->
+        <!-- Так как картинки на каждом разрешении имеют разные размеры мы их скачиваем под разный размер и записываем через тег picture (контейнер для хранения нескольких элементов source), чтобы при адаптиве менять под размер экрана, но так в промежуточных размерах экрана картинка не будет растягиваться на всю высоту контейнера, поэтому этот вариант не подойдет -->
         <!-- <picture class=" about__pic">
           <source srcset="img/aang320.jpeg" media="(max-width: 320px)">
           <source srcset="img/aang768.jpeg" media="(max-width: 768px)">

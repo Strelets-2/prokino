@@ -260,7 +260,7 @@ iframe {
   margin-bottom: 32px;
 }
 
-.about__discription {
+.about__description {
   font-size: 20px;
   font-weight: 400;
 }
@@ -472,7 +472,7 @@ iframe {
     margin-bottom: 24px;
   }
 
-  .about__discription {
+  .about__description {
     font-size: 16px;
     font-weight: 400;
   }
@@ -546,7 +546,7 @@ iframe {
     font-size: 40px;
   }
 
-  .about__discription {
+  .about__description {
     font-size: 16px;
     font-weight: 400;
   }
@@ -672,7 +672,7 @@ iframe {
     margin-bottom: 16px;
   }
 
-  .about__discription {
+  .about__description {
     font-size: 16px;
     font-weight: 400;
   }
@@ -740,7 +740,3 @@ iframe {
     margin-bottom: 4px;
   }
 }
-
-/* grid-template-areas: "developers logo"
-"copyright logo";
-gap: 36px; */
