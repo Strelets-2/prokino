@@ -1,21 +1,29 @@
 const init = () => {
   const trailersContainer = document.querySelector('.trailers__container');
   const trailersButtons = document.querySelectorAll('.trailers__button');
-  // Создаем функцию для создания нового видео (блока ul с классом trailers__buttons)
+  // Создаем функцию для создания нового видео (блока ul с классом trailers__list)
   const createElement = () => {
     const activeButton = document.querySelector('.trailers__button--active');
     const activeButtonSrc = activeButton.getAttribute('data-src');
     const newVideo = document.createElement('ul');
     newVideo.classList.add('trailers__list');
-    newVideo.innerHTML = `
-  <li class="trailers__item">
-    <div class="trailers__wrapper">
-      <iframe class="trailers__video" src=${activeButtonSrc}
-      title="YouTube video player"></iframe>
-    </div>
-  </li>
-  `;
+
     trailersContainer.append(newVideo);
+
+    const trailersItem = document.createElement('li');
+    trailersItem.classList.add('trailers__item');
+    newVideo.append(trailersItem);
+
+    const trailersWrapper = document.createElement('div');
+    trailersWrapper.classList.add('trailers__wrapper');
+    trailersItem.append(trailersWrapper);
+
+    const iframe = document.createElement('iframe');
+    iframe.classList.add('trailers__video');
+    iframe.setAttribute('src', activeButtonSrc);
+    iframe.setAttribute('title', 'YouTube video player');
+    trailersWrapper.append(iframe);
+
   };
 
   // Вызываем функцию для создания нового видео в первый раз
@@ -42,6 +50,3 @@ const init = () => {
 };
 
 init();
-
-
-
